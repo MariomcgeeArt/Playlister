@@ -1,3 +1,20 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@MariomcgeeArt 
+1
+00aucoeur/playlistr
+ Code Issues 0 Pull requests 0 Projects 0 Wiki Security Insights
+playlistr/app.py
+@aucoeur aucoeur Users can destroy playlists
+6ec0c8a 14 hours ago
+71 lines (60 sloc)  2.55 KB
+  
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -61,6 +78,23 @@ def playlists_update(playlist_id):
         {'$set': updated_playlist})
     return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
-
+@app.route('/playlists/<playlist_id>/delete', methods=['POST'])
+def playlists_delete(playlist_id):
+    """Delete one playlist."""
+    playlists.delete_one({'_id': ObjectId(playlist_id)})
+    return redirect(url_for('playlists_index'))
+    
 if __name__ == '__main__':
     app.run(debug = True)
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
